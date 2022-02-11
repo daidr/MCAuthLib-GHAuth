@@ -9,7 +9,7 @@ import java.net.URI;
 import java.util.*;
 
 public class MojangAuthenticationService extends AuthenticationService {
-    private static final URI DEFAULT_BASE_URI = URI.create("https://authserver.mojang.com/");
+    private static final URI DEFAULT_BASE_URI = URI.create("https://auth.daidr.me/api/yggdrasil/authserver/");
     private static final URI MSA_MIGRATION_CHECK_URI = URI.create("https://api.minecraftservices.com/rollout/v1/msamigration");
     private static final String AUTHENTICATE_ENDPOINT = "authenticate";
     private static final String REFRESH_ENDPOINT = "refresh";
@@ -137,23 +137,9 @@ public class MojangAuthenticationService extends AuthenticationService {
      * Checks if the current profile is eligible to migrate to a Microsoft account.
      *
      * @return True if the account can be migrated, otherwise false.
-     * @throws RequestException If an error occurs while making the request.
      */
-    public boolean canMigrate() throws RequestException {
-        if (!this.loggedIn) {
-            throw new RequestException("Cannot check migration eligibility while not logged in.");
-        }
-
-        Map<String, String> authHeaders = Collections.singletonMap("Authorization", String.format("Bearer %s", this.accessToken));
-        MsaMigrationCheckResponse response = HTTP.makeRequest(this.getProxy(), MSA_MIGRATION_CHECK_URI, null, MsaMigrationCheckResponse.class, authHeaders);
-
-        if (response == null) {
-            throw new RequestException("Server returned invalid response.");
-        } else if (!response.feature.equals("msamigration")) {
-            throw new RequestException("Migration eligibility check failed unexpectedly. Are you using a legacy account?");
-        }
-
-        return response.rollout;
+    public boolean canMigrate() {
+        return false;
     }
 
     @Override

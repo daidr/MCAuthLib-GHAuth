@@ -30,7 +30,7 @@ import java.util.UUID;
  * Information about a user profile.
  */
 public class GameProfile {
-    private static final String[] WHITELISTED_DOMAINS = { ".minecraft.net", ".mojang.com" };
+    private static final String[] WHITELISTED_DOMAINS = { ".daidr.me", ".mojang.com" };
     private static final PublicKey SIGNATURE_KEY;
     private static final Gson GSON;
 
